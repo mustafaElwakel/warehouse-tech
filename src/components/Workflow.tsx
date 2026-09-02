@@ -2,7 +2,6 @@ import {
   Box,
   Container,
   Heading,
-  HStack,
   SimpleGrid,
   Stack,
   Text,
@@ -28,13 +27,6 @@ const PILLARS = [
     description:
       "Every feature exists to help a manager, label, or artist make a faster, better-informed decision — whether that's routing a tour, pitching to a brand, or auditing a royalty statement.",
   },
-];
-
-const STATS = [
-  { value: "847M+", label: "Streams tracked monthly" },
-  { value: "42M+",  label: "Followers under management" },
-  { value: "12+",   label: "Countries active" },
-  { value: "#1",    label: "Peak chart position" },
 ];
 
 export function Workflow() {
@@ -98,7 +90,6 @@ export function Workflow() {
             </MotionBox>
           ))}
         </SimpleGrid>
-
       </Container>
     </Box>
   );
