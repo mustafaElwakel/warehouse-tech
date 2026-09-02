@@ -9,7 +9,7 @@ export function Showcase() {
       id="product"
       overflow="hidden"
       position="relative"
-      mt={{ base: "-6rem", md: "-16rem" }}
+      mt={{ base: "-2rem", md: "-4rem" }}
     >
       <ContainerScroll
         titleComponent={

@@ -99,31 +99,6 @@ export function Workflow() {
           ))}
         </SimpleGrid>
 
-        <HStack
-          mt={{ base: 16, md: 24 }}
-          spacing={0}
-          flexWrap="wrap"
-          justify="space-between"
-          borderTop="1px solid"
-          borderColor="whiteAlpha.100"
-          pt={{ base: 10, md: 14 }}
-        >
-          {STATS.map((s) => (
-            <Stack key={s.label} spacing={1} flex="1" minW="140px" py={2}>
-              <Text
-                fontFamily="heading"
-                fontSize={{ base: "3xl", md: "4xl" }}
-                fontWeight={700}
-                color="white"
-              >
-                {s.value}
-              </Text>
-              <Text fontSize="sm" color="slate.500">
-                {s.label}
-              </Text>
-            </Stack>
-          ))}
-        </HStack>
       </Container>
     </Box>
   );

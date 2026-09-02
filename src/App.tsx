@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
+import { RobotShowcase } from "./components/RobotShowcase";
 import { Showcase } from "./components/Showcase";
 import { Features } from "./components/Features";
 import { Workflow } from "./components/Workflow";
@@ -13,6 +14,7 @@ function App() {
     <Box bg="slate.950" color="slate.200" minH="100vh" overflowX="hidden">
       <Navbar />
       <Hero />
+      <RobotShowcase />
       <Showcase />
       <Features />
       <Workflow />
