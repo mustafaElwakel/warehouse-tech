@@ -12,21 +12,27 @@ import {
 import type { IconType } from "react-icons";
 import {
   FiBarChart2,
+  FiCheck,
+  FiCloud,
   FiDollarSign,
   FiGlobe,
+  FiLayers,
+  FiLayout,
   FiMap,
   FiMusic,
+  FiTag,
   FiUsers,
 } from "react-icons/fi";
 import { MotionBox } from "./motion";
 
-type Feature = {
+type Capability = {
   icon: IconType;
   title: string;
   description: string;
 };
 
-const FEATURES: Feature[] = [
+/** What TheWareOps, the flagship management system, actually does. */
+const WAREOPS_CAPABILITIES: Capability[] = [
   {
     icon: FiBarChart2,
     title: "Multi-Platform Analytics",
@@ -65,11 +71,68 @@ const FEATURES: Feature[] = [
   },
 ];
 
+type Product = {
+  icon: IconType;
+  name: string;
+  tagline: string;
+  points: string[];
+};
+
+/** The three products that sit alongside TheWareOps. */
+const PRODUCTS: Product[] = [
+  {
+    icon: FiTag,
+    name: "WareTix",
+    tagline: "A full ticketing system built for shows and tours.",
+    points: [
+      "Presales, on-sales, and allocations managed in one place",
+      "Live sales and attendance as the show builds",
+      "Guest lists and settlement without the spreadsheet",
+    ],
+  },
+  {
+    icon: FiCloud,
+    name: "WareSound",
+    tagline: "Cloud storage built around music, not generic files.",
+    points: [
+      "Stems, masters, and artwork organised by release",
+      "Version history, so the latest file is never in doubt",
+      "Share links you can expire, revoke, and track",
+    ],
+  },
+  {
+    icon: FiLayout,
+    name: "Artist Sites",
+    tagline: "Branded artist websites that stay in sync.",
+    points: [
+      "Release and tour pages that update themselves",
+      "Ticket, streaming, and merch links in one destination",
+      "A custom domain, designed around the artist's brand",
+    ],
+  },
+];
+
+function ProductIcon({ icon }: { icon: IconType }) {
+  return (
+    <Box
+      display="inline-flex"
+      p={2.5}
+      borderRadius="lg"
+      bg="brand.500"
+      boxShadow="0 0 20px rgba(6, 182, 212, 0.4)"
+      alignSelf="flex-start"
+      flexShrink={0}
+    >
+      <Icon as={icon} boxSize={4} color="slate.950" />
+    </Box>
+  );
+}
+
 export function Features() {
   return (
     <Box as="section" id="features" py={{ base: 20, md: 28 }} position="relative">
       <Container maxW="7xl">
-        <Stack spacing={4} maxW="3xl" mb={5}>
+        <Stack spacing={4} maxW="3xl" mb={12}>
           <Text
             fontSize="sm"
             fontWeight={600}
@@ -77,7 +140,7 @@ export function Features() {
             textTransform="uppercase"
             color="brand.400"
           >
-            Management System
+            The Platform
           </Text>
           <Heading
             fontFamily="heading"
@@ -89,15 +152,122 @@ export function Features() {
             Everything your artist's career needs
           </Heading>
           <Text fontSize={{ base: "md", md: "lg" }} color="slate.400">
-            Built on real management experience — not assumptions. Every module
-            solves a problem we've lived ourselves.
+            Four products, one connected system — management, ticketing, storage,
+            and presence. Built on real management experience, not assumptions.
           </Text>
         </Stack>
+
+        {/* The flagship product, given room for its full feature set */}
+        <MotionBox
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          p={{ base: 6, md: 9 }}
+          mb={5}
+          borderRadius="2xl"
+          bg="whiteAlpha.50"
+          border="1px solid"
+          borderColor="whiteAlpha.100"
+        >
+          <Flex align="center" gap={3} mb={3} flexWrap="wrap">
+            <ProductIcon icon={FiLayers} />
+            <Heading as="h3" fontSize="xl" fontWeight={600} color="white">
+              TheWareOps
+            </Heading>
+            <Badge
+              px={3}
+              py={1}
+              borderRadius="full"
+              colorScheme="cyan"
+              variant="solid"
+              fontSize="xs"
+              fontWeight={700}
+              letterSpacing="0.1em"
+              flexShrink={0}
+            >
+              COMING SOON
+            </Badge>
+          </Flex>
+          <Text color="slate.400" fontSize={{ base: "sm", md: "md" }} maxW="3xl" mb={9}>
+            The management system at the centre of the platform — every artist's
+            data, catalog, audience, and money in a single view, for managers,
+            labels, and their teams.
+          </Text>
+
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacingX={8} spacingY={7}>
+            {WAREOPS_CAPABILITIES.map((capability) => (
+              <Box key={capability.title}>
+                <Flex align="center" gap={3} mb={2}>
+                  <Icon as={capability.icon} boxSize={4} color="brand.400" />
+                  <Heading as="h4" fontSize="md" fontWeight={600} color="white">
+                    {capability.title}
+                  </Heading>
+                </Flex>
+                <Text color="slate.400" fontSize="sm" lineHeight={1.75}>
+                  {capability.description}
+                </Text>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </MotionBox>
+
+        {/* The other three products, given equal weight to each other */}
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={12}>
+          {PRODUCTS.map((product, i) => (
+            <MotionBox
+              key={product.name}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+              display="flex"
+              flexDirection="column"
+              p={7}
+              borderRadius="2xl"
+              bg="whiteAlpha.50"
+              border="1px solid"
+              borderColor="whiteAlpha.100"
+              _hover={{ borderColor: "brand.500", bg: "whiteAlpha.100" }}
+              sx={{ transition: "border-color 0.25s, background 0.25s" }}
+            >
+              <ProductIcon icon={product.icon} />
+              <Heading
+                as="h3"
+                fontSize="lg"
+                fontWeight={600}
+                color="white"
+                mt={4}
+                mb={2}
+              >
+                {product.name}
+              </Heading>
+              <Text color="slate.400" fontSize="sm" lineHeight={1.75} mb={5}>
+                {product.tagline}
+              </Text>
+              <Stack spacing={2.5} mt="auto">
+                {product.points.map((point) => (
+                  <Flex key={point} align="flex-start" gap={2.5}>
+                    <Icon
+                      as={FiCheck}
+                      boxSize={3.5}
+                      color="brand.400"
+                      mt="0.3rem"
+                      flexShrink={0}
+                    />
+                    <Text color="slate.300" fontSize="sm" lineHeight={1.6}>
+                      {point}
+                    </Text>
+                  </Flex>
+                ))}
+              </Stack>
+            </MotionBox>
+          ))}
+        </SimpleGrid>
 
         <Flex
           align="center"
           gap={4}
-          mb={12}
           p={4}
           borderRadius="xl"
           border="1px solid"
@@ -116,52 +286,16 @@ export function Features() {
             letterSpacing="0.1em"
             flexShrink={0}
           >
-            COMING SOON
+            EARLY ACCESS
           </Badge>
           <Text fontSize="sm" color="slate.300">
-            Early-access partners get priority onboarding and help shape the
-            final product.{" "}
+            Early-access partners get priority onboarding across all four products
+            and help shape the final release.{" "}
             <Text as="span" color="brand.300" fontWeight={600}>
               Request access below.
             </Text>
           </Text>
         </Flex>
-
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
-          {FEATURES.map((feature, i) => (
-            <MotionBox
-              key={feature.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.06, ease: "easeOut" }}
-              p={7}
-              borderRadius="2xl"
-              bg="whiteAlpha.50"
-              border="1px solid"
-              borderColor="whiteAlpha.100"
-              _hover={{ borderColor: "brand.500", bg: "whiteAlpha.100" }}
-              sx={{ transition: "border-color 0.25s, background 0.25s" }}
-            >
-              <Box
-                display="inline-flex"
-                p={2.5}
-                borderRadius="lg"
-                bg="brand.500"
-                boxShadow="0 0 20px rgba(6, 182, 212, 0.4)"
-                mb={4}
-              >
-                <Icon as={feature.icon} boxSize={4} color="slate.950" />
-              </Box>
-              <Heading as="h3" fontSize="lg" fontWeight={600} color="white" mb={2}>
-                {feature.title}
-              </Heading>
-              <Text color="slate.400" fontSize="sm" lineHeight={1.75}>
-                {feature.description}
-              </Text>
-            </MotionBox>
-          ))}
-        </SimpleGrid>
       </Container>
     </Box>
   );
