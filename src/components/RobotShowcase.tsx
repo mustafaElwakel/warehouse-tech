@@ -1,4 +1,4 @@
-import { Box, Center, Icon, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Icon, SimpleGrid, Text } from "@chakra-ui/react";
 import type { IconType } from "react-icons";
 import { FiCloud, FiLayers, FiLayout, FiTag } from "react-icons/fi";
 import { MotionBox } from "./motion";
@@ -90,23 +90,11 @@ export function RobotShowcase() {
       as="section"
       position="relative"
       mt={{ base: "-5rem", md: "-14rem" }}
-      pt={{ base: 4, md: 6 }}
+      pt={{ base: 16, md: 6 }}
       pb={{ base: 16, md: 20 }}
       overflow="hidden"
     >
       <MotionBox {...fadeUp} transition={{ duration: 0.6, ease: "easeOut" }}>
-        <Center>
-          <Text
-            fontSize="sm"
-            fontWeight={600}
-            letterSpacing="0.15em"
-            textTransform="uppercase"
-            color="brand.400"
-            mb={{ base: 10, md: 3 }}
-          >
-            AI-Powered
-          </Text>
-        </Center>
         <Text
           display={{ base: "none", md: "block" }}
           textAlign="center"

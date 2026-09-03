@@ -29,7 +29,7 @@ export function Hero() {
             letterSpacing="0.08em"
             textTransform="uppercase"
           >
-            Management System — Coming Soon
+            AI-Powered
           </Badge>
         </HStack>
       </MotionBox>
