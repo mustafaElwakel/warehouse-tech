@@ -443,7 +443,7 @@ export function RequestAccess() {
                               size="md"
                               aria-label={`Artist ${index + 1} Instagram`}
                               name={`artistInstagram${index + 1}`}
-                              placeholder="@handle"
+                              placeholder="Instagram handle"
                               value={artist.instagram}
                               onChange={(event) =>
                                 updateArtist(
