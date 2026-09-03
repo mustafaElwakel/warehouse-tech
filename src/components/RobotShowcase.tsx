@@ -31,7 +31,7 @@ const SERVICES: Service[] = [
   {
     icon: FiCloud,
     name: "WareSound",
-    description: "Cloud storage for music — think Dropbox, built for artists.",
+    description: "Cloud storage built around music, not generic files.",
   },
   {
     icon: FiLayout,
