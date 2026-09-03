@@ -350,24 +350,14 @@ export function RequestAccess() {
                     />
                   </Field>
 
-                  <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
-                    <Field label="Their Instagram">
-                      <Input
-                        {...fieldStyles}
-                        name="instagram"
-                        placeholder="@handle"
-                        required
-                      />
-                    </Field>
-                    <Field label="Their phone or email">
-                      <Input
-                        {...fieldStyles}
-                        name="artistContact"
-                        placeholder="Phone number or email"
-                        required
-                      />
-                    </Field>
-                  </SimpleGrid>
+                  <Field label="Their Instagram">
+                    <Input
+                      {...fieldStyles}
+                      name="instagram"
+                      placeholder="@handle"
+                      required
+                    />
+                  </Field>
 
                   <Button
                     type="submit"
