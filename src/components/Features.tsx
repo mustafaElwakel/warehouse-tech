@@ -11,10 +11,10 @@ import {
 } from "@chakra-ui/react";
 import type { IconType } from "react-icons";
 import {
-  FiBarChart2,
   FiCheck,
   FiCloud,
   FiCpu,
+  FiDollarSign,
   FiGlobe,
   FiLayers,
   FiLayout,
@@ -34,10 +34,10 @@ type Capability = {
 /** What TheWareOps, the flagship management system, actually does. */
 const WAREOPS_CAPABILITIES: Capability[] = [
   {
-    icon: FiBarChart2,
-    title: "Multi-Platform Analytics",
+    icon: FiDollarSign,
+    title: "Finance & Budgeting",
     description:
-      "One chart. Every platform. Compare Spotify, YouTube, Instagram, and TikTok growth side by side across any date range.",
+      "Revenue and expenses tracked side by side, with ready-made budget templates to work from — or build your own.",
   },
   {
     icon: FiMusic,
@@ -178,7 +178,7 @@ export function Features() {
           </Flex>
           <Text color="slate.400" fontSize={{ base: "sm", md: "md" }} maxW="3xl" mb={9}>
             The management system at the centre of the platform — an artist's
-            data, catalog, and daily signals in a single view, with AI built into
+            data, catalog, finances, and daily signals in a single view, with AI built into
             the work, for managers, labels, and their teams.
           </Text>
 
