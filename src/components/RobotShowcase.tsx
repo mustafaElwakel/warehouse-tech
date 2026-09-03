@@ -102,12 +102,13 @@ export function RobotShowcase() {
             letterSpacing="0.15em"
             textTransform="uppercase"
             color="brand.400"
-            mb={3}
+            mb={{ base: 10, md: 3 }}
           >
             AI-Powered
           </Text>
         </Center>
         <Text
+          display={{ base: "none", md: "block" }}
           textAlign="center"
           fontFamily="heading"
           fontWeight={600}
@@ -121,6 +122,7 @@ export function RobotShowcase() {
           Your intelligent companion for every deal
         </Text>
         <Text
+          display={{ base: "none", md: "block" }}
           textAlign="center"
           fontSize={{ base: "sm", md: "md" }}
           color="slate.400"
