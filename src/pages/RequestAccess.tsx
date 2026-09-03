@@ -1,9 +1,11 @@
 import {
   Box,
   Button,
+  Checkbox,
   Container,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Heading,
   Icon,
@@ -24,6 +26,14 @@ const ROLES = [
   "Label",
   "Booking agent",
   "Other",
+];
+
+/** The four products, named as they are on the landing page. */
+const SERVICES = [
+  { name: "TheWareOps", blurb: "Management system" },
+  { name: "WareTix", blurb: "Ticketing" },
+  { name: "WareSound", blurb: "Music storage" },
+  { name: "Artist Sites", blurb: "Artist websites" },
 ];
 
 const fieldStyles = {
@@ -59,14 +69,31 @@ function Field({
 
 export function RequestAccess() {
   const [sent, setSent] = useState(false);
+  const [services, setServices] = useState<string[]>([]);
+  const [servicesError, setServicesError] = useState(false);
 
   // Landing here from the CTA keeps the previous scroll position otherwise.
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  function toggleService(name: string) {
+    setServices((current) => {
+      const next = current.includes(name)
+        ? current.filter((s) => s !== name)
+        : [...current, name];
+      if (next.length > 0) setServicesError(false);
+      return next;
+    });
+  }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // A checkbox group has no native "at least one" rule, so it is checked here.
+    if (services.length === 0) {
+      setServicesError(true);
+      return;
+    }
     // TODO: there is no backend yet — nothing is transmitted or stored, the
     // form only shows a confirmation. Wire this up to a real endpoint before
     // relying on any request submitted here.
@@ -244,6 +271,75 @@ export function RequestAccess() {
                       ))}
                     </Select>
                   </Field>
+
+                  <FormControl isInvalid={servicesError}>
+                    <FormLabel
+                      fontSize="sm"
+                      fontWeight={600}
+                      color="slate.300"
+                      mb={1}
+                    >
+                      Which services are you interested in?
+                      <Box as="span" color="red.300" ml={1} aria-hidden="true">
+                        *
+                      </Box>
+                    </FormLabel>
+                    <Text fontSize="xs" color="slate.500" mb={3}>
+                      Select all that apply.
+                    </Text>
+                    <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={3}>
+                      {SERVICES.map((service) => {
+                        const checked = services.includes(service.name);
+                        return (
+                          <Box
+                            key={service.name}
+                            as="label"
+                            display="flex"
+                            alignItems="center"
+                            gap={3}
+                            px={4}
+                            py={3}
+                            borderRadius="xl"
+                            cursor="pointer"
+                            bg={checked ? "rgba(6,182,212,0.08)" : "whiteAlpha.100"}
+                            border="1px solid"
+                            borderColor={checked ? "brand.500" : "whiteAlpha.200"}
+                            _hover={{
+                              borderColor: checked ? "brand.400" : "whiteAlpha.300",
+                            }}
+                            sx={{
+                              transition: "border-color 0.2s, background 0.2s",
+                            }}
+                          >
+                            <Checkbox
+                              name="services"
+                              value={service.name}
+                              isChecked={checked}
+                              onChange={() => toggleService(service.name)}
+                              colorScheme="cyan"
+                              size="lg"
+                            />
+                            <Box>
+                              <Text
+                                fontSize="sm"
+                                fontWeight={600}
+                                color="white"
+                                lineHeight={1.3}
+                              >
+                                {service.name}
+                              </Text>
+                              <Text fontSize="xs" color="slate.400">
+                                {service.blurb}
+                              </Text>
+                            </Box>
+                          </Box>
+                        );
+                      })}
+                    </SimpleGrid>
+                    <FormErrorMessage fontSize="sm">
+                      Please choose at least one service.
+                    </FormErrorMessage>
+                  </FormControl>
 
                   <Field label="Which artist do you want to manage?">
                     <Input
