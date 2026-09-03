@@ -1,5 +1,4 @@
 import {
-  Badge,
   Box,
   Container,
   Flex,
@@ -200,7 +199,7 @@ export function Features() {
         </MotionBox>
 
         {/* The other three products, given equal weight to each other */}
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5} mb={12}>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5}>
           {PRODUCTS.map((product, i) => (
             <MotionBox
               key={product.name}
@@ -251,38 +250,6 @@ export function Features() {
             </MotionBox>
           ))}
         </SimpleGrid>
-
-        <Flex
-          align="center"
-          gap={4}
-          p={4}
-          borderRadius="xl"
-          border="1px solid"
-          borderColor="brand.500"
-          bg="rgba(6,182,212,0.06)"
-          flexWrap="wrap"
-        >
-          <Badge
-            px={3}
-            py={1}
-            borderRadius="full"
-            colorScheme="cyan"
-            variant="solid"
-            fontSize="xs"
-            fontWeight={700}
-            letterSpacing="0.1em"
-            flexShrink={0}
-          >
-            EARLY ACCESS
-          </Badge>
-          <Text fontSize="sm" color="slate.300">
-            Early-access partners get priority onboarding across all four products
-            and help shape the final release.{" "}
-            <Text as="span" color="brand.300" fontWeight={600}>
-              Request access below.
-            </Text>
-          </Text>
-        </Flex>
       </Container>
     </Box>
   );
