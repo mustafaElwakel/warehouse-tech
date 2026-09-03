@@ -14,14 +14,14 @@ import {
   FiBarChart2,
   FiCheck,
   FiCloud,
-  FiDollarSign,
+  FiCpu,
   FiGlobe,
   FiLayers,
   FiLayout,
-  FiMap,
   FiMusic,
   FiTag,
-  FiUsers,
+  FiTrendingUp,
+  FiYoutube,
 } from "react-icons/fi";
 import { MotionBox } from "./motion";
 
@@ -46,22 +46,22 @@ const WAREOPS_CAPABILITIES: Capability[] = [
       "Every release, every chart entry, every playlist — stream counts, peak positions, and authenticity flags, all in one place.",
   },
   {
-    icon: FiUsers,
-    title: "Audience DNA",
+    icon: FiTrendingUp,
+    title: "Daily Trend Insights",
     description:
-      "Country, city, age, interests, brand affinities. A complete audience brief ready to send to a partner in seconds.",
+      "Every trend, mention, and story about your artist, surfaced daily and ranked by severity — so whatever needs attention first is what you read first.",
   },
   {
-    icon: FiMap,
-    title: "Tour Opportunity Map",
+    icon: FiCpu,
+    title: "AI Music Assistant",
     description:
-      "An interactive world map of where listeners actually are. Plan routing based on real density, not gut feeling.",
+      "Produce a cover, extend a work in progress, or build a track from scratch — studio-grade generation that stays under your team's direction.",
   },
   {
-    icon: FiDollarSign,
-    title: "Royalty Audit",
+    icon: FiYoutube,
+    title: "YouTube Intelligence",
     description:
-      "Upload statements and cross-reference every line against verified stream data. Mismatches surface automatically.",
+      "Full performance data on every video, with AI summaries of each comment section — sentiment, recurring themes, and what the audience is actually asking for.",
   },
   {
     icon: FiGlobe,
@@ -175,24 +175,11 @@ export function Features() {
             <Heading as="h3" fontSize="xl" fontWeight={600} color="white">
               TheWareOps
             </Heading>
-            <Badge
-              px={3}
-              py={1}
-              borderRadius="full"
-              colorScheme="cyan"
-              variant="solid"
-              fontSize="xs"
-              fontWeight={700}
-              letterSpacing="0.1em"
-              flexShrink={0}
-            >
-              COMING SOON
-            </Badge>
           </Flex>
           <Text color="slate.400" fontSize={{ base: "sm", md: "md" }} maxW="3xl" mb={9}>
-            The management system at the centre of the platform — every artist's
-            data, catalog, audience, and money in a single view, for managers,
-            labels, and their teams.
+            The management system at the centre of the platform — an artist's
+            data, catalog, and daily signals in a single view, with AI built into
+            the work, for managers, labels, and their teams.
           </Text>
 
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacingX={8} spacingY={7}>
