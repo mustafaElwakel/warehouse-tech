@@ -9,14 +9,15 @@ import {
   FormLabel,
   Heading,
   Icon,
+  IconButton,
   Input,
   Select,
   SimpleGrid,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useState, type FormEvent } from "react";
-import { FiArrowLeft, FiCheck } from "react-icons/fi";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { FiArrowLeft, FiCheck, FiPlus, FiX } from "react-icons/fi";
 import { Link as RouterLink } from "react-router-dom";
 import { MotionBox } from "../components/motion";
 
@@ -67,15 +68,43 @@ function Field({
   );
 }
 
+type ArtistEntry = { id: number; name: string; instagram: string };
+
+const emptyArtist = (id: number): ArtistEntry => ({ id, name: "", instagram: "" });
+
 export function RequestAccess() {
   const [sent, setSent] = useState(false);
   const [services, setServices] = useState<string[]>([]);
   const [servicesError, setServicesError] = useState(false);
+  const [artists, setArtists] = useState<ArtistEntry[]>([emptyArtist(1)]);
+  // Rows are keyed by id rather than index, so removing one from the middle
+  // does not shift the remaining rows' state onto the wrong inputs.
+  const nextArtistId = useRef(2);
 
   // Landing here from the CTA keeps the previous scroll position otherwise.
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  function addArtist() {
+    setArtists((current) => [...current, emptyArtist(nextArtistId.current++)]);
+  }
+
+  function removeArtist(id: number) {
+    setArtists((current) => current.filter((artist) => artist.id !== id));
+  }
+
+  function updateArtist(
+    id: number,
+    field: "name" | "instagram",
+    value: string,
+  ) {
+    setArtists((current) =>
+      current.map((artist) =>
+        artist.id === id ? { ...artist, [field]: value } : artist,
+      ),
+    );
+  }
 
   function toggleService(name: string) {
     setServices((current) => {
@@ -312,6 +341,9 @@ export function RequestAccess() {
                             }}
                           >
                             <Checkbox
+                              id={`service-${service.name
+                                .toLowerCase()
+                                .replace(/\s+/g, "-")}`}
                               name="services"
                               value={service.name}
                               isChecked={checked}
@@ -341,23 +373,106 @@ export function RequestAccess() {
                     </FormErrorMessage>
                   </FormControl>
 
-                  <Field label="Which artist do you want to manage?">
-                    <Input
-                      {...fieldStyles}
-                      name="artist"
-                      placeholder="Artist or band name"
-                      required
-                    />
-                  </Field>
+                  <Box>
+                    {/* Not a FormControl: it would hand every input in the
+                        group the same generated id. */}
+                    <FormLabel
+                      as="p"
+                      fontSize="sm"
+                      fontWeight={600}
+                      color="slate.300"
+                      mb={1}
+                    >
+                      Which artists do you want to manage?
+                      <Box as="span" color="red.300" ml={1} aria-hidden="true">
+                        *
+                      </Box>
+                    </FormLabel>
+                    <Text fontSize="xs" color="slate.500" mb={3}>
+                      Add a row for each artist on your roster.
+                    </Text>
 
-                  <Field label="Their Instagram">
-                    <Input
-                      {...fieldStyles}
-                      name="instagram"
-                      placeholder="@handle"
-                      required
-                    />
-                  </Field>
+                    <Stack spacing={3}>
+                      {artists.map((artist, index) => (
+                        <Box
+                          key={artist.id}
+                          px={4}
+                          py={4}
+                          borderRadius="xl"
+                          bg="whiteAlpha.100"
+                          border="1px solid"
+                          borderColor="whiteAlpha.200"
+                        >
+                          <Flex align="center" justify="space-between" mb={3}>
+                            <Text
+                              fontSize="xs"
+                              fontWeight={700}
+                              letterSpacing="0.1em"
+                              textTransform="uppercase"
+                              color="slate.500"
+                            >
+                              Artist {index + 1}
+                            </Text>
+                            {artists.length > 1 && (
+                              <IconButton
+                                aria-label={`Remove artist ${index + 1}`}
+                                icon={<Icon as={FiX} boxSize={4} />}
+                                size="sm"
+                                variant="ghost"
+                                color="slate.400"
+                                _hover={{ color: "white", bg: "whiteAlpha.200" }}
+                                onClick={() => removeArtist(artist.id)}
+                              />
+                            )}
+                          </Flex>
+                          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3}>
+                            <Input
+                              {...fieldStyles}
+                              size="md"
+                              aria-label={`Artist ${index + 1} name`}
+                              name={`artistName${index + 1}`}
+                              placeholder="Artist or band name"
+                              value={artist.name}
+                              onChange={(event) =>
+                                updateArtist(artist.id, "name", event.target.value)
+                              }
+                              required
+                            />
+                            <Input
+                              {...fieldStyles}
+                              size="md"
+                              aria-label={`Artist ${index + 1} Instagram`}
+                              name={`artistInstagram${index + 1}`}
+                              placeholder="@handle"
+                              value={artist.instagram}
+                              onChange={(event) =>
+                                updateArtist(
+                                  artist.id,
+                                  "instagram",
+                                  event.target.value,
+                                )
+                              }
+                              required
+                            />
+                          </SimpleGrid>
+                        </Box>
+                      ))}
+                    </Stack>
+
+                    <Button
+                      type="button"
+                      onClick={addArtist}
+                      mt={3}
+                      size="sm"
+                      variant="outline"
+                      color="brand.300"
+                      borderColor="whiteAlpha.300"
+                      leftIcon={<Icon as={FiPlus} boxSize={4} />}
+                      _hover={{ bg: "whiteAlpha.100", borderColor: "brand.500" }}
+                    >
+                      Add another artist
+                    </Button>
+                  </Box>
 
                   <Button
                     type="submit"
