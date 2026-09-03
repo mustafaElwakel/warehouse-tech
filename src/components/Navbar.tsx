@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { label: "Platform", href: "#features" },
   { label: "About", href: "#workflow" },
   { label: "Clients", href: "#artists" },
-  { label: "Early Access", href: "#pricing" },
+  { label: "Request Access", href: "#pricing" },
 ];
 
 export function Navbar() {

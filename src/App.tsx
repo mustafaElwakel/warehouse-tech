@@ -1,27 +1,15 @@
-import { Box } from "@chakra-ui/react";
-import { Navbar } from "./components/Navbar";
-import { Hero } from "./components/Hero";
-import { RobotShowcase } from "./components/RobotShowcase";
-import { Showcase } from "./components/Showcase";
-import { Features } from "./components/Features";
-import { Workflow } from "./components/Workflow";
-import { Testimonial } from "./components/Testimonial";
-import { CTA } from "./components/CTA";
-import { Footer } from "./components/Footer";
+import { Route, Routes } from "react-router-dom";
+import { LandingPage } from "./pages/LandingPage";
+import { RequestAccess } from "./pages/RequestAccess";
 
 function App() {
   return (
-    <Box bg="slate.950" color="slate.200" minH="100vh" overflowX="hidden">
-      <Navbar />
-      <Hero />
-      <RobotShowcase />
-      <Showcase />
-      <Features />
-      <Workflow />
-      <Testimonial />
-      <CTA />
-      <Footer />
-    </Box>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/request-access" element={<RequestAccess />} />
+      {/* Anything unrecognised falls back to the landing page */}
+      <Route path="*" element={<LandingPage />} />
+    </Routes>
   );
 }
 

@@ -1,18 +1,8 @@
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Heading,
-  Input,
-  Text,
-} from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Button, Container, Heading, Text } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 import { MotionBox } from "./motion";
 
 export function CTA() {
-  const [submitted, setSubmitted] = useState(false);
-
   return (
     <Box as="section" id="pricing" py={{ base: 20, md: 28 }}>
       <Container maxW="6xl">
@@ -52,7 +42,7 @@ export function CTA() {
             color="brand.400"
             mb={4}
           >
-            Early Access Programme
+            Request Access
           </Text>
           <Heading
             position="relative"
@@ -64,7 +54,7 @@ export function CTA() {
             maxW="3xl"
             mx="auto"
           >
-            Be among the first teams to run on Warehouse Tech
+            Bring your roster onto Warehouse Tech
           </Heading>
           <Text
             position="relative"
@@ -74,60 +64,26 @@ export function CTA() {
             maxW="xl"
             mx="auto"
           >
-            We are onboarding a small number of artist management teams and
-            labels ahead of the public launch. Drop your email and we'll reach
-            out when your spot is ready.
+            Warehouse Tech is live for artist management teams and labels. Send
+            us a request with a few details about you and your roster, and our
+            team will set your workspace up.
           </Text>
 
-          {submitted ? (
-            <Box position="relative" mt={10}>
-              <Text
-                fontSize="md"
-                fontWeight={600}
-                color="brand.300"
-              >
-                You're on the list. We'll be in touch.
-              </Text>
-            </Box>
-          ) : (
-            <Flex
-              position="relative"
-              mt={10}
-              maxW="md"
-              mx="auto"
-              gap={3}
-              flexDirection={{ base: "column", sm: "row" }}
+          <Box position="relative" mt={10}>
+            <Button
+              as={RouterLink}
+              to="/request-access"
+              size="lg"
+              bg="white"
+              color="slate.950"
+              fontWeight={600}
+              px={8}
+              _hover={{ bg: "slate.200", textDecoration: "none" }}
+              _active={{ bg: "slate.300" }}
             >
-              <Input
-                placeholder="your@email.com"
-                size="lg"
-                bg="whiteAlpha.100"
-                border="1px solid"
-                borderColor="whiteAlpha.200"
-                color="white"
-                _placeholder={{ color: "slate.500" }}
-                _focus={{
-                  borderColor: "brand.400",
-                  boxShadow: "0 0 0 1px #22d3ee",
-                  bg: "whiteAlpha.150",
-                }}
-                flex="1"
-              />
-              <Button
-                size="lg"
-                bg="white"
-                color="slate.950"
-                fontWeight={600}
-                px={7}
-                flexShrink={0}
-                _hover={{ bg: "slate.200" }}
-                _active={{ bg: "slate.300" }}
-                onClick={() => setSubmitted(true)}
-              >
-                Join waitlist
-              </Button>
-            </Flex>
-          )}
+              Request access
+            </Button>
+          </Box>
         </MotionBox>
       </Container>
     </Box>
